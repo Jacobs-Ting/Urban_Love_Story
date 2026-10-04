@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#15202b">
+  <title>RF工程師與單親PM的下班之後</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <section id="titleScreen" class="screen title-screen active">
+      <div class="city" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="title-card">
+        <p class="eyebrow">INTERACTIVE LIGHT NOVEL · 17:40</p>
+        <h1><span>RF工程師</span><small>與</small><span>單親PM的</span><em>下班之後</em></h1>
+        <p class="subtitle">有些訊號可以用儀器量測，<br>有些心意卻只能慢慢確認。</p>
+        <div class="title-actions">
+          <button class="primary" data-action="new">開始遊戲 <b>→</b></button>
+          <button data-action="continue">繼續遊戲</button>
+          <button data-modal="chapters">章節選擇</button>
+          <button data-modal="characters">角色介紹</button>
+          <button data-modal="settings">系統設定</button>
+        </div>
+        <p class="save-hint" id="saveHint">尚未建立存檔</p>
+      </div>
+      <footer>CHAPTER 01 · 掉了 3 dB 的夜晚</footer>
+    </section>
+
+    <section id="gameScreen" class="screen game-screen" aria-live="polite">
+      <header class="game-header">
+        <button class="brand" data-action="home"><span class="signal">⌁</span> AFTER HOURS</button>
+        <div class="chapter-label"><small>CHAPTER 01</small><strong>掉了 3 dB 的夜晚</strong></div>
+        <button class="icon-btn" data-modal="stats" aria-label="狀態">STATUS</button>
+      </header>
+      <div id="stage" class="stage bg-office">
+        <div class="ambient"><span></span><span></span><span></span></div>
+        <div class="scene-caption" id="sceneCaption">RD OFFICE · 17:40</div>
+        <div id="portrait" class="portrait rf normal">
+          <div class="character-glow" aria-hidden="true"></div>
+          <img class="character-image character-rf" src="assets/rf_engineer.png" alt="RF工程師林致遠">
+          <img class="character-image character-pm" src="assets/pm.png" alt="PM周予晴">
+          <img class="character-image character-rf-casual" src="assets/rf_casual.png" alt="休閒裝林致遠">
+          <img class="character-image character-pm-casual" src="assets/pm_casual.png" alt="休閒裝周予晴">
+          <span class="portrait-label">RF ENGINEER</span>
+        </div>
+        <div id="narrativeCard" class="narrative-card">
+          <div class="speaker-row"><span id="speaker">旁白</span><i></i></div>
+          <p id="dialogue"></p>
+          <div id="dataPanel" class="data-panel"></div>
+          <div id="choices" class="choices"></div>
+          <button id="nextBtn" class="next-btn" aria-label="下一句"><span>NEXT</span> ↓</button>
+        </div>
+      </div>
+      <nav class="toolbar" aria-label="遊戲控制">
+        <button data-action="save"><span>▣</span> SAVE</button>
+        <button data-action="load"><span>↻</span> LOAD</button>
+        <button data-action="auto"><span>▷</span> AUTO</button>
+        <button data-action="skip"><span>»</span> SKIP</button>
+        <button data-modal="backlog"><span>≡</span> LOG</button>
+        <button data-modal="settings"><span>⚙</span> SETTING</button>
+      </nav>
+    </section>
+  </div>
+
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="modal-panel">
+      <button class="modal-close" aria-label="關閉">×</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+  <div id="toast" class="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>
