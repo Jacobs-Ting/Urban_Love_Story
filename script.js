@@ -335,7 +335,116 @@ const story = {
   d4_67:{chapter:4,bg:'hotel-room',char:'rf',exp:'normal',speaker:'旁白',text:'他輸入「OK」，停頓，刪除。重新輸入：「收到，早點睡。」',next:'d4_68'},
   d4_68:{chapter:4,bg:'hotel-room',char:'pm',exp:'smile',speaker:'周予晴｜訊息',text:'「你也是。」',next:'d4_69'},
   d4_69:{chapter:4,bg:'hotel-room',char:'rf',exp:'normal',speaker:'旁白',text:'昨天晚上，他們還只是同一個 Project 裡的 RF 與 PM。而今晚，在距離台灣三千公里外的城市，他們第一次知道彼此工作以外的一點點事情。',next:'d4_end'},
-  d4_end:{chapter:4,bg:'hotel-room',time:'MALAYSIA · FRIDAY NIGHT',char:'pm',exp:'normal',speaker:'支線解鎖',text:'接下來的幾天，他們在 Factory Line、Meeting 與報告之間往返。直到星期五，客戶終於接受 Containment Plan，而星期六第一次沒有任何人排進 Schedule。',choices:[{text:'進入週末支線｜沒有 Pass / Fail 的星期六',next:'w1_01'}],end:true},
+  d4_end:{chapter:4,bg:'hotel-room',time:'MALAYSIA · NEXT MORNING',char:'pm',exp:'normal',speaker:'下一章',text:'隔天早上，真正的 Factory Debug 才要開始。知道 Failure Mechanism，不代表 Root Cause 已經結束。',choices:[{text:'進入第五章｜Root Cause 還沒有結束',next:'d5_01'},{text:'週末支線｜沒有 Pass / Fail 的星期六',next:'w1_01'}],end:true},
+
+  d5_01:{chapter:5,bg:'factory-line',time:'SHAH ALAM FACTORY · 08:34',char:'rf',exp:'serious',speaker:'旁白',text:'產線重新啟動。致遠面前排著 Golden、Fail、Reworked Sample，不同 Lot 機台、OTA 結果與 Contact Resistance 紀錄。今天的問題不再是 Ground Spring 有沒有接觸。',next:'d5_02',bgm:'factory_morning'},
+  d5_02:{chapter:5,bg:'factory-line',char:'rf',exp:'serious',speaker:'林致遠',text:'真正的問題是：同一套製程，為什麼有些機台正常，有些機台失效？',data:[['Possible Factor','Fixture Force Variation',''],['Material','Ground Spring Tolerance',''],['Assembly','Operator / Stack-up',''],['Control Gap','WI / QA Sampling','fail']],next:'d5_03'},
+  d5_03:{chapter:5,bg:'factory-line',char:'rf',exp:'serious',speaker:'Factory ME',text:'「我們之前做了幾千台都沒有問題。也可能是 Design Margin 太小。」',next:'d5_04'},
+  d5_04:{chapter:5,bg:'factory-line',char:'rf',exp:'normal',speaker:'林致遠',text:'「所以我要知道 Margin 到底有多少。」',next:'d5_05'},
+  d5_05:{chapter:5,bg:'factory-line',char:'rf',exp:'serious',speaker:'Factory ME',text:'「我們 Assembly 都有按照 WI。」',next:'d5_06'},
+  d5_06:{chapter:5,bg:'factory-line',char:'rf',exp:'normal',speaker:'林致遠',text:'「那就一起看 WI。」他沒有站到 RD 或 Factory 任一邊。每個人都有壓力，也都害怕問題最後落在自己身上。',next:'d5_07'},
+  d5_07:{chapter:5,bg:'factory-line',char:'rf',exp:'serious',speaker:'Factory Debug',text:'下一步要如何縮小 Variation？',choices:[
+    {text:'直接要求 Factory 100% Rework',next:'d5_c1a',effects:{workReputation:-1}},
+    {text:'做 Operator A/B Comparison',next:'d5_c1b',effects:{rfExpertise:2,workReputation:1}},
+    {text:'要求換一批 Ground Spring',next:'d5_c1c',effects:{rfExpertise:1}},
+    {text:'只看 OTA 結果',next:'d5_c1d',effects:{rfExpertise:-1}},
+    {text:'量 Contact Resistance 建立 Correlation',next:'d5_c1e',effects:{rfExpertise:2,workReputation:2}}
+  ]},
+  d5_c1a:{chapter:5,bg:'factory-line',char:'rf',exp:'tired',speaker:'Factory ME',text:'「你能證明所有機台都有同樣風險嗎？」致遠沒有回答。Engineering Decision 不能只靠直覺，100% Rework 也可能製造新的 Variation。',next:'d5_08'},
+  d5_c1b:{chapter:5,bg:'factory-line',char:'rf',exp:'serious',speaker:'林致遠',text:'「換 Operator。相同 Fixture、相同 Lot，裝配前後都記錄。」如果手法改變分布，WI 就沒有把關鍵動作定義清楚。',next:'d5_08'},
+  d5_c1c:{chapter:5,bg:'factory-line',char:'rf',exp:'serious',speaker:'林致遠',text:'「同一台機器換不同 Lot 的 Spring，來料尺寸和 Contact Force 都記錄。」這能測材料，但還不能單獨排除 Fixture 與 Operator。',next:'d5_08'},
+  d5_c1d:{chapter:5,bg:'factory-line',char:'rf',exp:'tired',speaker:'旁白',text:'OTA 告訴他結果，卻沒告訴他製程的哪一個動作造成結果。他很快回到 Line，把中間參數補回來。',next:'d5_08'},
+  d5_c1e:{chapter:5,bg:'factory-line',char:'rf',exp:'serious',speaker:'林致遠',text:'「每台先量 Contact Resistance，再跑 OTA。我要知道兩個數字是否一起移動。」當相關性建立，抽象的接觸不良才會變成可控制的規格。',next:'d5_08'},
+  d5_08:{chapter:5,bg:'factory-line',time:'PRODUCTION LINE · 10:42',char:'rf',exp:'serious',speaker:'旁白',text:'「換 Operator。換 Fixture。再做一台。Golden 一起做。Rework 前後都記錄。」他反覆重排條件，把所有人的立場拆成可以驗證的 Hypothesis。',next:'d5_09'},
+  d5_09:{chapter:5,bg:'factory-line',char:'rf',exp:'serious',speaker:'初步資料',text:'Variation 開始浮出輪廓，但還沒有單一因素足以解釋所有 Fail。',data:[['Fixture #1','Stable','pass'],['Fixture #2','Force spread ↑','fail'],['Operator A/B','Small difference',''],['Contact R vs TRP','Correlation observed','pass']],next:'d5_10'},
+  d5_10:{chapter:5,bg:'factory-office',time:'FACTORY OFFICE · SAME TIME',char:'pm',exp:'serious',speaker:'旁白',text:'同一時間，予晴整天待在 Factory Office。她不量測；她負責讓 Customer、BU、Taiwan Team、Certification、Factory PM、QA 與 Manufacturing 看見同一個現實。',next:'d5_11'},
+  d5_11:{chapter:5,bg:'factory-office',char:'pm',exp:'serious',speaker:'Customer PM｜電話',text:'「Yesterday you said the issue was identified. Then why can’t you guarantee the next build？」',next:'d5_12'},
+  d5_12:{chapter:5,bg:'factory-office',char:'pm',exp:'serious',speaker:'周予晴',text:'「The failure mechanism is understood. We are still verifying process variation and containment effectiveness.」',next:'d5_13'},
+  d5_13:{chapter:5,bg:'factory-office',char:'pm',exp:'tired',speaker:'Customer PM',text:'「So the root cause is not closed？」',next:'d5_14'},
+  d5_14:{chapter:5,bg:'factory-office',char:'pm',exp:'serious',speaker:'周予晴',text:'「The failure mechanism is understood. Production control is still being verified.」',next:'d5_15'},
+  d5_15:{chapter:5,bg:'factory-office',char:'pm',exp:'tired',speaker:'旁白',text:'一整天，她用不同方式回答同樣的問題：好了沒？何時可以保證？下一批會不會再發生？是 Design 還是 Factory？',next:'d5_16'},
+  d5_16:{chapter:5,bg:'factory-office',char:'pm',exp:'serious',speaker:'旁白',text:'她把仍然不完整的工程狀態，翻譯成 Action、Risk、Timeline、Containment 與 Next Update。最累的不是不知道，而是即使不知道，也不能讓會議失控。',data:[['Action','Fixture / Operator A-B',''],['Risk','Next Build recurrence','fail'],['Containment','Screening under verification',''],['Next Update','18:00 MYT','pass']],next:'d5_17'},
+  d5_17:{chapter:5,bg:'factory-office',time:'FACTORY OFFICE · 20:30',char:'pm',exp:'tired',speaker:'旁白',text:'最後一通 Customer Call 結束。辦公室幾乎空了。她摘下耳機，沒有立刻站起來，只看著 Containment Plan、Risk Assessment 和 Open Issue。',next:'d5_18'},
+  d5_18:{chapter:5,bg:'factory-office',char:'pm',exp:'tired',speaker:'周予晴',text:'「終於。」',next:'d5_19'},
+  d5_19:{chapter:5,bg:'factory-office',char:'rf',exp:'tired',speaker:'旁白',text:'致遠從 Production Line 回來，手裡仍是測試記錄，臉色比數據更難看。',next:'d5_20'},
+  d5_20:{chapter:5,bg:'factory-office',char:'pm',exp:'normal',speaker:'周予晴',text:'「還是沒收斂？」',next:'d5_21'},
+  d5_21:{chapter:5,bg:'factory-office',char:'rf',exp:'tired',speaker:'林致遠',text:'「有方向。」',next:'d5_22'},
+  d5_22:{chapter:5,bg:'factory-office',char:'pm',exp:'tired',speaker:'周予晴',text:'「但沒有答案。」',next:'d5_23'},
+  d5_23:{chapter:5,bg:'factory-office',char:'rf',exp:'normal',speaker:'林致遠',text:'「對。」兩個人都沒有再假裝今天還有力氣。',next:'d5_24'},
+  d5_24:{chapter:5,bg:'lounge',time:'HOTEL LOUNGE · 22:03',char:'pm',exp:'tired',speaker:'旁白',text:'回到飯店，他們原本準備各自上樓。予晴卻在 Lounge Bar 前停下。暖色燈光、低聲 Jazz 和落地窗外的 Shah Alam 夜景，像一個暫時不必回答問題的地方。',next:'d5_25',bgm:'lounge_jazz'},
+  d5_25:{chapter:5,bg:'lounge',char:'pm',exp:'normal',speaker:'周予晴',text:'「要不要喝一杯？」',next:'d5_26'},
+  d5_26:{chapter:5,bg:'lounge',char:'rf',exp:'normal',speaker:'林致遠',text:'「妳不是說明天七點早餐？」',next:'d5_27'},
+  d5_27:{chapter:5,bg:'lounge',char:'pm',exp:'tired',speaker:'周予晴',text:'「我現在後悔排七點了。一杯。」',next:'d5_28'},
+  d5_28:{chapter:5,bg:'lounge',char:'rf',exp:'normal',speaker:'林致遠',text:'「一杯。」這不是約會。只是兩個累了一整天的人，不想立刻回到只有報告和自己的房間。',next:'d5_29'},
+  d5_29:{chapter:5,bg:'lounge',char:'pm',exp:'normal',speaker:'周予晴',text:'「你今天臉很臭。」',next:'d5_30'},
+  d5_30:{chapter:5,bg:'lounge',char:'rf',exp:'surprised',speaker:'林致遠',text:'「有嗎？」',next:'d5_31'},
+  d5_31:{chapter:5,bg:'lounge',char:'pm',exp:'smile',speaker:'周予晴',text:'「有。」',next:'d5_32'},
+  d5_32:{chapter:5,bg:'lounge',char:'rf',exp:'tired',speaker:'林致遠',text:'「Factory 一直說製程沒問題。我最怕的不是他們說沒問題，是他們真的覺得沒問題。」',next:'d5_33'},
+  d5_33:{chapter:5,bg:'lounge',char:'pm',exp:'tired',speaker:'周予晴',text:'「我今天最怕的也不是客戶生氣，是他們一直問我什麼時候可以保證。」',next:'d5_34'},
+  d5_34:{chapter:5,bg:'lounge',char:'rf',exp:'normal',speaker:'林致遠',text:'「妳怎麼回？」',next:'d5_35'},
+  d5_35:{chapter:5,bg:'lounge',char:'pm',exp:'normal',speaker:'周予晴',text:'「不能保證的事，就不要說保證。」',next:'d5_36'},
+  d5_36:{chapter:5,bg:'lounge',char:'rf',exp:'smile',speaker:'林致遠',text:'「妳以前不是很會給日期？」',next:'d5_37'},
+  d5_37:{chapter:5,bg:'lounge',char:'pm',exp:'smile',speaker:'周予晴',text:'「我給的是 Update 日期，不是奇蹟發生日期。」兩人第一次因為彼此都懂這種荒謬，一起笑出來。',next:'d5_38'},
+  d5_38:{chapter:5,bg:'lounge',char:'pm',exp:'normal',speaker:'周予晴',text:'「你知道 PM 最討厭哪一句嗎？」',next:'d5_39'},
+  d5_39:{chapter:5,bg:'lounge',char:'rf',exp:'normal',speaker:'林致遠',text:'「ASAP？」',next:'d5_40'},
+  d5_40:{chapter:5,bg:'lounge',char:'pm',exp:'smile',speaker:'周予晴',text:'「不是。『你們不是已經找到 Root Cause 了嗎？』」',next:'d5_41'},
+  d5_41:{chapter:5,bg:'lounge',char:'rf',exp:'smile',speaker:'林致遠',text:'「工程師最討厭的是：『找到 Root Cause 為什麼還不能 Close？』」',next:'d5_42'},
+  d5_42:{chapter:5,bg:'lounge',char:'pm',exp:'smile',speaker:'周予晴',text:'她舉起杯子。「敬 Root Cause。」',next:'d5_43'},
+  d5_43:{chapter:5,bg:'lounge',char:'rf',exp:'smile',speaker:'林致遠',text:'他也舉杯。「永遠比想像中複雜。」兩只杯子輕輕碰在一起。終於有人懂，今天為什麼這麼累。',next:'d5_44',effects:{pmAffection:1}},
+  d5_44:{chapter:5,bg:'lounge',char:'pm',exp:'tired',speaker:'周予晴',text:'「其實有時候，我很羨慕你。你至少可以說：目前 Evidence 不足。」',next:'d5_45'},
+  d5_45:{chapter:5,bg:'lounge',char:'rf',exp:'normal',speaker:'林致遠',text:'「妳不行？」',next:'d5_46'},
+  d5_46:{chapter:5,bg:'lounge',char:'pm',exp:'serious',speaker:'周予晴',text:'「客戶不想聽不知道。有時候我也不知道，但不能讓他們感覺我不知道。」',choices:[
+    {text:'所以 PM 是把不知道講得像知道？',next:'d5_c2a',effects:{pmAffection:-1}},
+    {text:'其實妳今天做得很好',next:'d5_c2b',effects:{pmAffection:1}},
+    {text:'妳可以跟我說不知道',next:'d5_c2c',effects:{pmAffection:2,lifeBalance:1}},
+    {text:'那就不要當 PM',next:'d5_c2d',effects:{pmAffection:-2}}
+  ]},
+  d5_c2a:{chapter:5,bg:'lounge',char:'pm',exp:'tired',speaker:'周予晴',text:'「不是。是把不知道整理成大家還能往前走的下一步。」她沒有生氣，只是太累了。',next:'d5_47'},
+  d5_c2b:{chapter:5,bg:'lounge',char:'rf',exp:'normal',speaker:'林致遠',text:'「其實妳今天做得很好。」她低頭看了看杯子，像是不太習慣工程師給沒有數據的評語。',next:'d5_47'},
+  d5_c2c:{chapter:5,bg:'lounge',char:'rf',exp:'normal',speaker:'林致遠',text:'「妳可以跟我說不知道。至少不用在每個人面前都裝沒事。」',next:'d5_47'},
+  d5_c2d:{chapter:5,bg:'lounge',char:'pm',exp:'serious',speaker:'周予晴',text:'「事情不會因為我不當 PM 就變簡單。」她看向窗外，兩人之間短暫恢復成工作距離。',next:'d5_47'},
+  d5_47:{chapter:5,bg:'lounge',char:'pm',exp:'smile',speaker:'旁白',text:'她沒有道謝，只是低頭笑了一下。手機就在這時震動：寶貝 Video Call。',next:'d5_48',sfx:'message'},
+  d5_48:{chapter:5,bg:'lounge',char:'pm',exp:'surprised',speaker:'周予晴',text:'「糟了。我答應他今天要視訊。」她接通電話，整個人的表情瞬間從 PM 變成媽媽。',next:'d5_49'},
+  d5_49:{chapter:5,bg:'lounge',char:'pm',exp:'smile',speaker:'小禾｜視訊',text:'「媽媽！妳在哪裡？為什麼這麼暗？妳喝酒？」',next:'d5_50'},
+  d5_50:{chapter:5,bg:'lounge',char:'pm',exp:'surprised',speaker:'周予晴',text:'「只有一點點。不要跟阿嬤告狀。」',next:'d5_51'},
+  d5_51:{chapter:5,bg:'lounge',char:'pm',exp:'surprised',speaker:'小禾｜視訊',text:'「媽媽，旁邊有人。是不是訊號叔叔？」兩個成年人同時停住。',next:'d5_52'},
+  d5_52:{chapter:5,bg:'lounge',char:'rf',exp:'surprised',speaker:'林致遠',text:'手機慢慢移過來。他出現在鏡頭裡。「……嗨。」',next:'d5_53'},
+  d5_53:{chapter:5,bg:'lounge',char:'rf',exp:'normal',speaker:'小禾｜視訊',text:'「真的是訊號叔叔！你也喝酒嗎？」',next:'d5_54'},
+  d5_54:{chapter:5,bg:'lounge',char:'rf',exp:'normal',speaker:'林致遠',text:'「一點點。」',next:'d5_55'},
+  d5_55:{chapter:5,bg:'lounge',char:'pm',exp:'smile',speaker:'小禾｜視訊',text:'「你們兩個都不乖。叔叔，你們今天有找到手機為什麼壞掉嗎？」',next:'d5_56'},
+  d5_56:{chapter:5,bg:'lounge',char:'rf',exp:'normal',speaker:'林致遠',text:'「還沒有完全找到。」',next:'d5_57'},
+  d5_57:{chapter:5,bg:'lounge',char:'rf',exp:'normal',speaker:'小禾｜視訊',text:'「那你明天要加油。不要讓媽媽太晚睡。」',next:'d5_58'},
+  d5_58:{chapter:5,bg:'lounge',char:'rf',exp:'normal',speaker:'林致遠',text:'他看了予晴一眼。「好。」',next:'d5_59'},
+  d5_59:{chapter:5,bg:'lounge',char:'pm',exp:'surprised',speaker:'周予晴',text:'「你不要隨便答應。」',next:'d5_60'},
+  d5_60:{chapter:5,bg:'lounge',char:'rf',exp:'smile',speaker:'林致遠',text:'「嗯，我說好了。」',next:'d5_61',effects:{childTrust:2,pmAffection:1}},
+  d5_61:{chapter:5,bg:'lounge',char:'pm',exp:'tired',speaker:'小禾｜視訊',text:'「媽媽什麼時候回來？訊號叔叔也一起回來嗎？回來可以一起吃飯嗎？」',next:'d5_62'},
+  d5_62:{chapter:5,bg:'lounge',char:'pm',exp:'surprised',speaker:'周予晴',text:'她看向致遠。「再看看。」',next:'d5_63'},
+  d5_63:{chapter:5,bg:'lounge',char:'pm',exp:'smile',speaker:'小禾｜視訊',text:'「什麼叫再看看？」',next:'d5_64'},
+  d5_64:{chapter:5,bg:'lounge',char:'pm',exp:'smile',speaker:'周予晴',text:'「就是小孩該睡覺了的意思。」電話那頭大喊「媽媽作弊」，視訊終於結束。',next:'d5_65'},
+  d5_65:{chapter:5,bg:'lounge',char:'pm',exp:'tired',speaker:'周予晴',text:'「不好意思。他很愛亂講。」',next:'d5_66'},
+  d5_66:{chapter:5,bg:'lounge',char:'rf',exp:'normal',speaker:'林致遠',text:'「小孩不是都這樣？」',next:'d5_67'},
+  d5_67:{chapter:5,bg:'lounge',char:'pm',exp:'normal',speaker:'周予晴',text:'「你每次都這句。」她停了一會兒。「如果他真的叫你一起吃飯，你會介意嗎？」',next:'d5_68'},
+  d5_68:{chapter:5,bg:'lounge',char:'rf',exp:'normal',speaker:'旁白',text:'這不是普通同事聚餐。是走進她和孩子原本很私人的生活。',choices:[
+    {text:'不會',next:'d5_c3a',effects:{pmAffection:1,childTrust:1}},
+    {text:'再看看',next:'d5_c3b',effects:{pmAffection:-1}},
+    {text:'如果妳不介意',next:'d5_c3c',effects:{pmAffection:2,childTrust:1}},
+    {text:'我不太會跟小孩相處',next:'d5_c3d',effects:{pmAffection:1}}
+  ]},
+  d5_c3a:{chapter:5,bg:'lounge',char:'rf',exp:'normal',speaker:'林致遠',text:'「不會。」答案太快，連他自己都愣了一下。',next:'d5_69'},
+  d5_c3b:{chapter:5,bg:'lounge',char:'rf',exp:'normal',speaker:'林致遠',text:'「再看看。」他借用了她剛才的答案。她笑了，卻沒有再追問。',next:'d5_69'},
+  d5_c3c:{chapter:5,bg:'lounge',char:'rf',exp:'normal',speaker:'林致遠',text:'「如果妳不介意。」',next:'d5_69'},
+  d5_c3d:{chapter:5,bg:'lounge',char:'rf',exp:'normal',speaker:'林致遠',text:'「我不太會跟小孩相處。」她輕聲說：「他好像不介意。」',next:'d5_69'},
+  d5_69:{chapter:5,bg:'lounge',char:'pm',exp:'normal',speaker:'周予晴',text:'她看著他，沒有立刻說話。最後只回了一聲：「嗯。」比他平常的「嗯」更有重量。',next:'d5_70'},
+  d5_70:{chapter:5,bg:'lounge',char:'pm',exp:'tired',speaker:'旁白',text:'她站起來時稍微晃了一下。致遠下意識扶住她的手臂，只是一瞬間。',next:'d5_71'},
+  d5_71:{chapter:5,bg:'lounge',char:'pm',exp:'serious',speaker:'周予晴',text:'「我沒有醉。」',next:'d5_72'},
+  d5_72:{chapter:5,bg:'lounge',char:'rf',exp:'normal',speaker:'林致遠',text:'「我知道。」',next:'d5_73'},
+  d5_73:{chapter:5,bg:'lounge',char:'pm',exp:'normal',speaker:'周予晴',text:'「那你扶什麼？」',next:'d5_74'},
+  d5_74:{chapter:5,bg:'lounge',char:'rf',exp:'smile',speaker:'林致遠',text:'「Safety Margin。」',next:'d5_75'},
+  d5_75:{chapter:5,bg:'lounge',char:'pm',exp:'smile',speaker:'周予晴',text:'她愣住，然後笑了。「走啦，訊號叔叔。現在是 Family Approved nickname。」',next:'d5_76'},
+  d5_76:{chapter:5,bg:'elevator',time:'HOTEL ELEVATOR · 23:08',char:'rf',exp:'surprised',speaker:'林致遠',text:'「……Family？」',next:'d5_77'},
+  d5_77:{chapter:5,bg:'elevator',char:'pm',exp:'surprised',speaker:'旁白',text:'她也意識到自己說了什麼，腳步慢了半拍，隨即裝作沒事。',next:'d5_78'},
+  d5_78:{chapter:5,bg:'elevator',char:'pm',exp:'normal',speaker:'周予晴',text:'「不要想太多。」',next:'d5_end'},
+  d5_end:{chapter:5,bg:'elevator',time:'CHAPTER 05 · END',char:'rf',exp:'normal',speaker:'旁白',text:'沒有告白、牽手或接吻。但他開始走進她與孩子的私人生活；而她也第一次讓他看見，那個會累、會不知道答案、也需要有人聽她抱怨的自己。當感情碰到家庭，兩個成年人都會變得更慎重。',end:true},
 
   w1_01:{chapter:'EX',bg:'hotel',time:'FRIDAY · 21:30',char:'pm',exp:'tired',speaker:'周予晴',text:'她結束最後一場客戶電話，闔上 Notebook，長長吐了一口氣。「客戶接受 Containment Plan 了。」',next:'w1_02',bgm:'hotel_evening'},
   w1_02:{chapter:'EX',bg:'hotel',char:'rf',exp:'tired',speaker:'林致遠',text:'「所以明天不用進 Factory？」',next:'w1_03'},
@@ -447,6 +556,12 @@ function startChapter4(){
   state.scene='d4_01'; state.auto=false; state.skip=false;
   closeModal(); showScreen(true); playBGM('klia_night'); render();
 }
+function startChapter5(){
+  state.applied ||= []; state.unlocked ||= ['chapter1','chapter5'];
+  if(!state.unlocked.includes('chapter5')) state.unlocked.push('chapter5');
+  state.scene='d5_01'; state.auto=false; state.skip=false;
+  closeModal(); showScreen(true); playBGM('factory_morning'); render();
+}
 function startWeekend(){
   state.applied ||= []; state.sideQuests ||= []; state.unlockedCG ||= []; state.unlocked ||= ['chapter1','weekend'];
   if(!state.unlocked.includes('weekend')) state.unlocked.push('weekend');
@@ -463,7 +578,7 @@ function render(){
   }
   const chapter=s.chapter||1;
   document.querySelector('.chapter-label small').textContent=`CHAPTER ${String(chapter).padStart(2,'0')}`;
-  document.querySelector('.chapter-label strong').textContent=chapter==='EX'?'沒有 Pass / Fail 的星期六':chapter===4?'吉隆坡，凌晨零點':chapter===3?'今天傍晚，飛吉隆坡':chapter===2?'早上九點以前':'掉了 3 dB 的夜晚';
+  document.querySelector('.chapter-label strong').textContent=chapter==='EX'?'沒有 Pass / Fail 的星期六':chapter===5?'Root Cause 還沒有結束':chapter===4?'吉隆坡，凌晨零點':chapter===3?'今天傍晚，飛吉隆坡':chapter===2?'早上九點以前':'掉了 3 dB 的夜晚';
   const stage=$('#stage'); stage.className=`stage bg-${s.bg||'office'}`;
   if(s.time) $('#sceneCaption').textContent=s.time;
   const portrait=$('#portrait'); portrait.className=`portrait ${s.char||'rf'} ${s.exp||'normal'} ${s.outfit||''}`;
@@ -489,6 +604,7 @@ function render(){
     if(s.chapter===3 && !state.unlocked.includes('chapter4')) state.unlocked.push('chapter4');
     if(s.chapter===4 && !state.unlocked.includes('chapter5')) state.unlocked.push('chapter5');
     if(s.chapter===4 && !state.unlocked.includes('weekend')) state.unlocked.push('weekend');
+    if(s.chapter===5 && !state.unlocked.includes('chapter6')) state.unlocked.push('chapter6');
     save(true);
   }
 }
@@ -514,7 +630,8 @@ function openModal(type){
     <article class="chapter-card ${state.unlocked.includes('chapter3')?'':'locked'}"><strong>03 · 今天傍晚，飛吉隆坡</strong><p>${state.unlocked.includes('chapter3')?'從工廠危機到第一次共同海外出差。':'完成第二日後解鎖'}</p>${state.unlocked.includes('chapter3')?'<button onclick="startChapter3()">進入第三章</button>':''}</article>
     <article class="chapter-card ${state.unlocked.includes('chapter4')?'':'locked'}"><strong>04 · 吉隆坡，凌晨零點</strong><p>${state.unlocked.includes('chapter4')?'異國深夜裡，第一次談起工作以外的生活。':'完成第三章後解鎖'}</p>${state.unlocked.includes('chapter4')?'<button onclick="startChapter4()">進入第四章</button>':''}</article>
     <article class="chapter-card ${state.unlocked.includes('weekend')?'side-story':'locked'}"><strong>EX · 沒有 Pass / Fail 的星期六</strong><p>${state.unlocked.includes('weekend')?'沒有 Spec、Schedule 或 Root Cause 的週末。':'完成馬來西亞工作週後解鎖'}</p>${state.unlocked.includes('weekend')?'<button onclick="startWeekend()">進入週末支線</button>':''}</article>
-    <article class="chapter-card locked"><strong>05 · Factory Line</strong><p>${state.unlocked.includes('chapter5')?'主線後續 · 故事待續':'完成第四章後解鎖'}</p></article>
+    <article class="chapter-card ${state.unlocked.includes('chapter5')?'':'locked'}"><strong>05 · Root Cause 還沒有結束</strong><p>${state.unlocked.includes('chapter5')?'白天各自在戰場撐著，晚上才終於能說累。':'完成第四章後解鎖'}</p>${state.unlocked.includes('chapter5')?'<button onclick="startChapter5()">進入第五章</button>':''}</article>
+    <article class="chapter-card locked"><strong>06 · 謹慎的距離</strong><p>${state.unlocked.includes('chapter6')?'第五章已完成 · 故事待續':'完成第五章後解鎖'}</p></article>
   </div>`;
   if(type==='backlog') content.innerHTML=`<h2><small>BACKLOG · LAST 50</small>對話回顧</h2>${state.backlog.length?state.backlog.slice().reverse().map(x=>`<div class="log-entry"><b>${esc(x.speaker)}</b>${esc(x.text)}</div>`).join(''):'<p>還沒有對話紀錄。</p>'}`;
   if(type==='stats') content.innerHTML=`<h2><small>PLAYER STATUS</small>目前狀態</h2><div class="stats">${Object.entries(state.stats).map(([k,v])=>`<div class="stat-row"><span>${labels[k]}</span><span>${v>=0?'+':''}${v}</span></div>`).join('')}</div><p style="color:var(--muted);line-height:1.8">數值不會鎖死單一選項，而會在後續章節改變對話、支線與結局。</p>`;
